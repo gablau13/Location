@@ -3,10 +3,14 @@
 namespace App\Entity;
 
 use App\Repository\AnounceRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Cocur\Slugify\Slugify;
 
 /**
  * @ORM\Entity(repositoryClass=AnounceRepository::class)
+ * @ORM\HasLifecycleCallbacks()
  */
 class Anounce
 {
@@ -62,6 +66,34 @@ class Anounce
      * @ORM\Column(type="datetime")
      */
     private $createAt;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="anounce", orphanRemoval=true)
+     */
+    private $comments;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Image::class, mappedBy="anounce", orphanRemoval=true)
+     */
+    private $images;
+
+    public function __construct()
+    {
+        $this->comments = new ArrayCollection();
+        $this->images = new ArrayCollection();
+    }
+
+
+
+    /**
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     */
+    public function initSlug()
+    {
+        $slugger = new Slugify();
+        $this->slug = $slugger->slugify($this->title);
+    }
 
     public function getId(): ?int
     {
@@ -164,7 +196,7 @@ class Anounce
         return $this;
     }
 
-    
+
 
     public function getCreateAt(): ?\DateTimeInterface
     {
@@ -174,6 +206,66 @@ class Anounce
     public function setCreateAt(\DateTimeInterface $createAt): self
     {
         $this->createAt = $createAt;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Comment[]
+     */
+    public function getComments(): Collection
+    {
+        return $this->comments;
+    }
+
+    public function addComment(Comment $comment): self
+    {
+        if (!$this->comments->contains($comment)) {
+            $this->comments[] = $comment;
+            $comment->setAnounce($this);
+        }
+
+        return $this;
+    }
+
+    public function removeComment(Comment $comment): self
+    {
+        if ($this->comments->removeElement($comment)) {
+            // set the owning side to null (unless already changed)
+            if ($comment->getAnounce() === $this) {
+                $comment->setAnounce(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Image[]
+     */
+    public function getImages(): Collection
+    {
+        return $this->images;
+    }
+
+    public function addImage(Image $image): self
+    {
+        if (!$this->images->contains($image)) {
+            $this->images[] = $image;
+            $image->setAnounce($this);
+        }
+
+        return $this;
+    }
+
+    public function removeImage(Image $image): self
+    {
+        if ($this->images->removeElement($image)) {
+            // set the owning side to null (unless already changed)
+            if ($image->getAnounce() === $this) {
+                $image->setAnounce(null);
+            }
+        }
 
         return $this;
     }
