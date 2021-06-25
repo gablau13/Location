@@ -20,11 +20,12 @@ class AppFixtures extends Fixture
         for ($i = 0; $i < 8; $i++) {
             $anounce = new Anounce();
             $anounce->setTitle($faker->sentence(3, false))
+            ->setIntroduction($faker->sentence(3, false))
                 ->setSlug($slugger->Slugify($anounce->getTitle()))
-                ->setdescription($faker->text(200))
+                ->setdescription($faker->text(500))
                 ->setPrice(mt_rand(30000, 60000))
                 ->setAddress($faker->address())
-                ->setCoverImage('https://picsum.photos/350/300/?random=' . mt_rand(1, 50000))
+                ->setCoverImage('https://picsum.photos/1350/600/?random=' . mt_rand(1, 50000))
                 ->setRoom(mt_rand(0, 5))
                 ->setIsAvailable(mt_rand(0, 1))
                 ->setCreateAt($faker->datetimeBetween('-3 month', 'now'));
@@ -39,7 +40,7 @@ class AppFixtures extends Fixture
                 $manager->persist($comment);
                 $anounce->AddComment($comment);
             }
-           for ($k=0; $k<mt_rand(0,4); $k++){
+           for ($k=0; $k<mt_rand(0,7); $k++){
                $image=new Image();
                $image->setImageUrl('https://picsum.photos/500/300/?ramdom=' . mt_rand(1, 50000))
                      ->setDescription($faker->sentence())

@@ -7,6 +7,7 @@
 
 
 	<div class="container">
+	<H1> <ta-center>Venez découvrir toutes nos annonces</ta-center></H1><br/><br/>
 		<div class="row">
 			{% for anounce in anounce %}
 
@@ -14,13 +15,13 @@
 					<div class="card mb-3"></div>
 					<h5 class="card-header">{{anounce.title}}</h5>
 
-					<img src="{{anounce.coverImage}}" alt="">
+					<img src="{{anounce.coverImage}}" alt="image" style="height:300; width:100%;">
 					<div class="card-body">
 						<p class="card-text">{{anounce.description}}</p>
 					</div>
 
 					<div class="card-body">
-						<a href="#" class="card-link btn btn-primary">Détails...</a>
+						<a href="{{path('show', {'id':anounce.id})}}" class="card-link btn btn-primary">Détails...</a>
 					</div>
 					<div class="card-footer text-muted text-center">
 						Il y'a 2 jours

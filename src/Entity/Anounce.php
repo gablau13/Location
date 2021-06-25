@@ -68,14 +68,19 @@ class Anounce
     private $createAt;
 
     /**
-     * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="anounce", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="anounce", cascade={"persist", "remove"})
      */
     private $comments;
 
     /**
-     * @ORM\OneToMany(targetEntity=Image::class, mappedBy="anounce", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Image::class, mappedBy="anounce", cascade={"persist", "remove"})
      */
     private $images;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $introduction;
 
     public function __construct()
     {
@@ -266,6 +271,18 @@ class Anounce
                 $image->setAnounce(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getIntroduction(): ?string
+    {
+        return $this->introduction;
+    }
+
+    public function setIntroduction(string $introduction): self
+    {
+        $this->introduction = $introduction;
 
         return $this;
     }

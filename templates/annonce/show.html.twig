@@ -1,0 +1,77 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Annonce
+{% endblock %}
+
+{% block body %}
+	<div class="container my-5 py-5" style="background-image: url('{{anounce.coverImage}}'); background-repeat: no-repeat; height:350px; color:white; font-size:25px">
+		<div class="mask rgba-gradient align-items-center;">
+			<div ="card-body ">
+				<p class="card-title text-center ">{{anounce.title}}</p>
+				<p class="card-title text-center">{{anounce.Introduction}}</p>
+				<p class="card-text text-center">3 Chambre à
+					{{anounce.Price}}
+					FCFA/Mois</p>
+				<p class="card-text text-center">{{anounce.Address}}</p>
+			</div>
+		</div>
+	</div>
+
+	<div class="container my-5">
+		<h2>Description</h2>
+		<p>{{anounce.description}}</p>
+	</div>
+
+		<div class="container">
+			<h3 style="margin-top: 2em;">Commentaires</h3>
+
+			<div class="row d-inline-flex">
+				{% for comment in anounce.comments %}
+					<div class="col-md-9">
+						<div class="alert alert-info">
+							<strong>{{comment.author}}
+								a écrit</strong>
+							<p>{{comment.content}}</p>
+						</div>
+					</div>
+				{% endfor %}
+
+				<div class="col-md-3">
+					<div class="list-group">
+						<a href="#" class="list-group-item list-group-item-action flex-column align-items-start active">
+							<div class="d-flex w-100 justify-content-between">
+								<h5 class="mb-1">List group item heading</h5>
+								<small>3 days ago</small>
+							</div>
+							<p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+							<small>Donec id elit non mi porta.</small>
+						</a>
+						<a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+							<div class="d-flex w-100 justify-content-between">
+								<h5 class="mb-1">List group item heading</h5>
+								<small class="text-muted">3 days ago</small>
+							</div>
+							<p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+							<small class="text-muted">Donec id elit non mi porta.</small>
+						</a>
+					</div>
+				</div>
+
+			</div>
+
+	</div>
+			<div class="container">
+				<div class="row">
+					{% for image in anounce.images %}
+						<div class="col-md-4">
+							<div class="card">
+								<div class="card-body">
+									<img src="{{image.imageUrl}}" alt="" class="card-img w-100%">
+								</div>
+							</div>
+						</div>
+					{% endfor %}
+				</div>
+
+			</div>
+		{% endblock %}
