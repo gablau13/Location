@@ -13,6 +13,7 @@
 					{{anounce.Price}}
 					FCFA/Mois</p>
 				<p class="card-text text-center">{{anounce.Address}}</p>
+
 			</div>
 		</div>
 	</div>
@@ -22,56 +23,62 @@
 		<p>{{anounce.description}}</p>
 	</div>
 
-		<div class="container">
-			<h3 style="margin-top: 2em;">Commentaires</h3>
+	<div class="container">
+		<h3 style="margin-top: 2em;">Commentaires</h3>
 
-			<div class="row d-inline-flex">
+		<div class="row d-inline-flex">
+
+			<div class="col-md-8">
 				{% for comment in anounce.comments %}
-					<div class="col-md-9">
-						<div class="alert alert-info">
-							<strong>{{comment.author}}
-								a écrit</strong>
-							<p>{{comment.content}}</p>
+					<div class="alert alert-info">
+						<strong>{{comment.author}}
+							a écrit</strong>
+						<p>{{comment.content}}</p>
+					</div>
+				{% endfor %}
+			</div>
+
+			<div class="col-md-4">
+				<div class="list-group">
+
+					<div class="d-flex w-100 justify-content-between">
+						<h5>Auteur de l'annonce</h5>
+					</div>
+					<img src="/image/auteur.jpg" alt="" style='width:50px;'>
+					<p>Prénom:<strong>
+							Gabriel</strong>
+					</p>
+					<p>Nom:
+						<strong>Diouf</strong>
+					</p>
+					<p>Adresse:
+						<strong>Médina Rue 10x25</strong>
+					</p>
+					<p>Tel:
+						<strong>77 436 65 14</strong>
+					</p>
+					<p>Email:
+						<strong>gabilau2406@gmail.com</strong>
+					</p>
+
+
+				</div>
+			</div>
+
+
+		</div>
+		<div class="container">
+			<div class="row">
+				{% for image in anounce.images %}
+					<div class="col-md-4">
+						<div class="card">
+							<div class="card-body">
+								<img src="{{image.imageUrl}}" alt="" class="card-img w-100%">
+							</div>
 						</div>
 					</div>
 				{% endfor %}
-
-				<div class="col-md-3">
-					<div class="list-group">
-						<a href="#" class="list-group-item list-group-item-action flex-column align-items-start active">
-							<div class="d-flex w-100 justify-content-between">
-								<h5 class="mb-1">List group item heading</h5>
-								<small>3 days ago</small>
-							</div>
-							<p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-							<small>Donec id elit non mi porta.</small>
-						</a>
-						<a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-							<div class="d-flex w-100 justify-content-between">
-								<h5 class="mb-1">List group item heading</h5>
-								<small class="text-muted">3 days ago</small>
-							</div>
-							<p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-							<small class="text-muted">Donec id elit non mi porta.</small>
-						</a>
-					</div>
-				</div>
-
 			</div>
 
-	</div>
-			<div class="container">
-				<div class="row">
-					{% for image in anounce.images %}
-						<div class="col-md-4">
-							<div class="card">
-								<div class="card-body">
-									<img src="{{image.imageUrl}}" alt="" class="card-img w-100%">
-								</div>
-							</div>
-						</div>
-					{% endfor %}
-				</div>
-
-			</div>
-		{% endblock %}
+		</div>
+	{% endblock %}

@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
+{% block body %}
+<h1>Veuillez remplir ce formulaire pour publier une annonce</h1>
+	{{ form_start(form) }}
+	<div class="container w-50 h-50 bg-info text-light">
+		<div class="form-group">
+			{{ form_widget(form) }}
+	
+	    </div>
+		<button type="submit" class="btn btn-primary">Publiez</button>
+    </div>
+	{{ form_end(form) }}
+
+{% endblock %}
