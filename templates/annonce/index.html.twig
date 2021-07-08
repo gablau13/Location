@@ -7,28 +7,48 @@
 
 
 	<div class="container">
-	<H1> <ta-center>Venez découvrir toutes nos annonces</ta-center></H1><br/><br/>
+		<H1>
+			<ta-center>Venez découvrir toutes nos annonces</ta-center>
+		</H1><br/><br/>
 		<div class="row">
 			{% for anounce in anounce %}
 
 				<div class="col-md-4">
-					<div class="card mb-3"></div>
-					<h5 class="card-header">{{anounce.title}}</h5>
+					<div class="card mb-3">
+						<p class="card-header text-center">
+							{% if anounce.room < 2 %}Une chambre
+							{% else %}
+								{{anounce.room}}
+								Chambres
+							{% endif %}
+							à
+							{{anounce.price | number_format(0, ',', ' ')}}
+							/mois
+							<br/>
+							<small>{{anounce.comments |length }}
+								commentaires</small>
+						</p>
 
-					<img src="{{anounce.coverImage}}" alt="image" style="height:300; width:100%;">
-					<div class="card-body">
-						<p class="card-text">{{anounce.description}}</p>
-					</div>
+						<img src="{{ asset('uploads/cover_images/' ~ anounce.coverImage  ) }}" alt="image" style="height:300; width:100%;">
 
-					<div class="card-body">
-						<a href="{{ path('show', {'id':anounce.id}) }}" class="card-link btn btn-primary">Détails...</a>
-					</div>
-					<div class="card-footer text-muted text-center">
-						Il y'a 2 jours
-						<i class="fas fa-map-marker"> {{anounce.address}} </i>
-						<strong></strong>
-					</div>
+						<div class="card-body">
 
+
+							<h5>{{anounce.title}}</h5>
+
+							<p class="card-text">{{anounce.introduction |u.truncate(100, '...')}}</p>
+						</div>
+
+						<div class="card-body">
+							<a href="{{ path('annonces_show', {'slug':anounce.slug}) }}" class="card-link btn btn-primary">Détails...</a>
+						</div>
+						<div class="card-footer text-muted text-center">
+							<i class="fas fa-map-marker">
+								{{anounce.address}}
+							</i> <br>
+							<small>{{ anounce.createAt | ago(locale='fr') }}</small>
+						</div>
+					</div>
 
 				</div>
 			{% endfor %}

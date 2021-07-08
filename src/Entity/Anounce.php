@@ -207,12 +207,14 @@ class Anounce
     {
         return $this->createAt;
     }
-
-    public function setCreateAt(\DateTimeInterface $createAt): self
+    
+    /**
+     *@ORM\PrePersist
+     *@ORM\PreUpdate
+     */
+    public function setCreateAt()
     {
-        $this->createAt = $createAt;
-
-        return $this;
+        $this->createAt = new \DateTime;
     }
 
     /**

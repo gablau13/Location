@@ -7,6 +7,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -19,49 +20,52 @@ class AnounceType extends AbstractType
     {
         $builder
             ->add('title', TextType::class, [
-                'attr'=>[
-                    'placeholder'=>"Titre de l'annonce", 'class'=>'form-control'
+                "label" => 'Titre',
+                'attr' => [
+                    'placeholder' => "Titre de l'annonce", 'class' => 'form-control'
                 ]
             ])
-        
+            ->add('introduction', TextType::class, [
+                'attr' => [
+                    "label" => 'Introduction',
+                    'placeholder' => "Titre de l'annonce", 'class' => 'form-control'
+                ]
+            ])
             ->add('description', TextareaType::class, [
-                'attr'=>[
-                    'placeholder'=>"saisir une brève description", 'class'=>'form-control'
+                'attr' => [
+                    "label" => 'Description',
+                    'placeholder' => "saisir une brève description", 'class' => 'form-control'
                 ]
             ])
             ->add('price', NumberType::class, [
-                'attr'=>[
-                    'placeholder'=>"veuillez entrer le prix svp", 'class'=>'form-control'
+                "label" => 'Prix',
+                'attr' => [
+                    'placeholder' => "veuillez entrer le prix svp", 'class' => 'form-control'
                 ]
             ])
             ->add('address', TextType::class, [
-                'attr'=>[
-                    'placeholder'=>"Adresse", 'class'=>'form-control'
+                "label" => 'Adresse',
+                'attr' => [
+                    'placeholder' => "Adresse", 'class' => 'form-control'
                 ]
             ])
-            ->add('coverImage', TextType::class, [
-                'attr'=>[
-                    'placeholder'=>"saisir l'URL", 'class'=>'form-control'
+            ->add('coverImage', FileType::class, [
+                "label" => 'ajouter une photos',
+                'mapped' => false,
+                'required' => false,
+                'attr' => [
+                    'placeholder' => "saisir l'URL", 'class' => 'form-control'
                 ]
             ])
             ->add('room', NumberType::class, [
-                'attr'=>[
-                    'placeholder'=>"Nombre de chambre", 'class'=>'form-control'
+                "label" => 'Nombre de chambre',
+                'attr' => [
+                    'placeholder' => "Nombre de chambre", 'class' => 'form-control'
                 ]
             ])
             ->add('isAvailable')
-            ->add('createAt')           
-            ->add('introduction', TextType::class, [
-                'attr'=>[
-                    'placeholder'=>"Titre de l'annonce", 'class'=>'form-control'
-                ]
-            ])
-            ->getForm()
-        ;
 
-       
 
-   
-}
-    
+            ->getForm();
+    }
 }

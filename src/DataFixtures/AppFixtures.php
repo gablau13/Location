@@ -20,17 +20,17 @@ class AppFixtures extends Fixture
         for ($i = 0; $i < 8; $i++) {
             $anounce = new Anounce();
             $anounce->setTitle($faker->sentence(3, false))
-            ->setIntroduction($faker->sentence(3, false))
+            ->setIntroduction($faker->text(200))
                 ->setSlug($slugger->Slugify($anounce->getTitle()))
                 ->setdescription($faker->text(500))
                 ->setPrice(mt_rand(30000, 60000))
                 ->setAddress($faker->address())
-                ->setCoverImage('https://picsum.photos/1350/600/?random=' . mt_rand(1, 50000))
-                ->setRoom(mt_rand(0, 5))
+                ->setCoverImage("245ddf7b29d56317b36962962ba625bf.jpg")
+                ->setRoom(mt_rand(1, 5))
                 ->setIsAvailable(mt_rand(0, 1))
-                ->setCreateAt($faker->datetimeBetween('-3 month', 'now'));
+                ->setCreateAt($faker->dateTimeThisYear('+2 months'));
 
-            for ($j = 0; $j < 3; $j++) {
+            for ($j = 0; $j<mt_rand(0, 10); $j++) {
                 $comment = new Comment();
                 $comment->setAuthor($faker->name())
                     ->setMail($faker->email())

@@ -2,8 +2,9 @@
 
 namespace App\Entity;
 
-use App\Repository\CommentRepository;
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\CommentRepository;
 
 /**
  * @ORM\Entity(repositoryClass=CommentRepository::class)
@@ -42,6 +43,11 @@ class Comment
      * @ORM\JoinColumn(onDelete="CASCADE")
      */
     private $anounce;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $rgpd;
 
     public function getId(): ?int
     {
@@ -84,14 +90,18 @@ class Comment
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeInterface
+    public function getCreatedAt(): ?\DateTime
     {
-        return $this->createdAt;
+        return $this->createdAt=new DateTime();
     }
+    /**
+     *@ORM\PrePersist
+     *@ORM\PreUpdate
+     */
 
-    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    public function setCreatedAt(\DateTime $createdAt): self
     {
-        $this->createdAt = $createdAt;
+        $this->createdAt = new \DateTime();
 
         return $this;
     }
@@ -104,6 +114,18 @@ class Comment
     public function setAnounce(?anounce $anounce): self
     {
         $this->anounce = $anounce;
+
+        return $this;
+    }
+
+    public function getRgpd(): ?bool
+    {
+        return $this->rgpd;
+    }
+
+    public function setRgpd(bool $rgpd): self
+    {
+        $this->rgpd = $rgpd;
 
         return $this;
     }

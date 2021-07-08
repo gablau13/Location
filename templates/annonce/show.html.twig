@@ -4,13 +4,14 @@
 {% endblock %}
 
 {% block body %}
-	<div class="container my-5 py-5" style="background-image: url('{{anounce.coverImage}}'); background-repeat: no-repeat; height:350px; color:white; font-size:25px">
+	<div class="container my-5 py-5" style="background-image: url('{{anounce.coverImage}}'); background-repeat: no-repeat; height:350px; color:white; font-size:25px; text-shadow:3px 3px 4px black;">
 		<div class="mask rgba-gradient align-items-center;">
 			<div ="card-body ">
 				<p class="card-title text-center ">{{anounce.title}}</p>
 				<p class="card-title text-center">{{anounce.Introduction}}</p>
-				<p class="card-text text-center">3 Chambre à
-					{{anounce.Price}}
+				<p class="card-text text-center">{{anounce.room }}
+					Chambre à
+					{{anounce.Price | number_format(0, ',', ' ')}}
 					FCFA/Mois</p>
 				<p class="card-text text-center">{{anounce.Address}}</p>
 
@@ -24,21 +25,40 @@
 	</div>
 
 	<div class="container">
+		<div class="row">
+			{% for image in anounce.images %}
+				<div class="col-md-4">
+					<div class="card">
+						<div class="card-body">
+							<img src="{{image.imageUrl}}" alt="" class="card-img w-100%">
+						</div>
+					</div>
+				</div>
+			{% endfor %}
+		</div>
+
+	</div>
+
+	<div class="container">
 		<h3 style="margin-top: 2em;">Commentaires</h3>
 
-		<div class="row d-inline-flex">
+		<div class="row">
 
-			<div class="col-md-8">
+			<div class="col-md-9">
 				{% for comment in anounce.comments %}
 					<div class="alert alert-info">
-						<strong>{{comment.author}}
-							a écrit</strong>
-						<p>{{comment.content}}</p>
+						<small>{{comment.author}}
+							a écrit</small>
+						<p><strong>{{comment.content}}</strong></p>
+						<p> <small> Publié par
+					{{comment.author}}
+					le
+					{{anounce.createAt |ago(locale='fr')}}</p></small>
 					</div>
 				{% endfor %}
 			</div>
 
-			<div class="col-md-4">
+			<div class="col-md-3">
 				<div class="list-group">
 
 					<div class="d-flex w-100 justify-content-between">
@@ -60,25 +80,31 @@
 					<p>Email:
 						<strong>gabilau2406@gmail.com</strong>
 					</p>
-
-
 				</div>
 			</div>
-
-
 		</div>
-		<div class="container">
-			<div class="row">
-				{% for image in anounce.images %}
-					<div class="col-md-4">
-						<div class="card">
-							<div class="card-body">
-								<img src="{{image.imageUrl}}" alt="" class="card-img w-100%">
-							</div>
-						</div>
-					</div>
-				{% endfor %}
+		<div>
+			
+			
+		<div>
+		<div>
+			<h3>Ajouter un commentaire</h3>
+			{{ form_start(commentForm) }}
+
+			<div class="form-group">
+				{{ form_widget(commentForm) }}
+
 			</div>
-
+			<button type="submit" class="btn btn-primary">Publiez</button>
 		</div>
+		{{ form_end(commentForm) }}
+		<br>
+
+
+		<div>
+			<a href={{path("annonces_edit" , {'slug' : anounce.slug} )}} class="btn btn-success">Modifier</a>
+			<a href={{path("annonces_delete", {'slug' : anounce.slug} )}} class="btn btn-danger">Supprimer</a>
+		</div>
+
+
 	{% endblock %}
