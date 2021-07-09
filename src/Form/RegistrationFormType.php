@@ -9,6 +9,7 @@ use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
@@ -18,7 +19,25 @@ class RegistrationFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-        ->add('email')
+        ->add('Prenom', TextType::class, [
+            "label" => 'Prenom',
+            'attr' => [
+                'placeholder' => "veuillez entrez votre prenom", 'class' => 'form-control'
+            ]
+        ])
+        ->add('Nom', TextType::class, [
+            "label" => 'Nom',
+            'attr' => [
+                'placeholder' => "veuillez entrez votre Nom", 'class' => 'form-control'
+            ]
+        ])
+        ->add('email', EmailType::class, [
+            "label" => 'Email',
+            'attr' => [
+                'placeholder' => "exemple@exemple.com", 'class' => 'form-control'
+            ]
+        ])
+        
             ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,
                 'constraints' => [
@@ -36,6 +55,7 @@ class RegistrationFormType extends AbstractType
                     new NotBlank([
                         'message' => 'Please enter a password',
                     ]),
+            
                     new Length([
                         'min' => 6,
                         'minMessage' => 'Your password should be at least {{ limit }} characters',
