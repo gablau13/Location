@@ -140,4 +140,6 @@ class AnnonceController extends AbstractController
         $this->addFlash('success', 'Annonce supprimer avec succès!');
         return $this->redirectToRoute('annonces_index');
     }
+
+    
 }
