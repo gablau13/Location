@@ -99,8 +99,8 @@
             "@auto-scripts"
         ],
         "compile": [
-            "php bin/console doctrine:schema:update --force",
-            "php bin/console doctrine:fixtures:load --append"
+            "php bin/console doctrine:schema:update --force"
+            
          ]
   
     },
