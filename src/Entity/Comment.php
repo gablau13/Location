@@ -44,10 +44,7 @@ class Comment
      */
     private $anounce;
 
-    /**
-     * @ORM\Column(type="boolean")
-     */
-    private $rgpd;
+    
 
     public function getId(): ?int
     {
@@ -118,15 +115,5 @@ class Comment
         return $this;
     }
 
-    public function getRgpd(): ?bool
-    {
-        return $this->rgpd;
-    }
-
-    public function setRgpd(bool $rgpd): self
-    {
-        $this->rgpd = $rgpd;
-
-        return $this;
-    }
+    
 }
